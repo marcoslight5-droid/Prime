@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetroPrime | Global Luxury Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           METROPRIME 5.0 - PURE LUXURY UI
+           ========================================= */
+        
+        :root {
+            --bg-body: #09090B;
+            --bg-surface: #141416;
+            --bg-card: #1C1C1F;
+            --accent: #C5A059; /* Refined Gold */
+            --accent-light: #E5C88B;
+            --text-main: #FAFAFA;
+            --text-muted: #71717A;
+            --border: rgba(255, 255, 255, 0.08);
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { 
+            scroll-behavior: smooth; 
+            font-size: 16px; /* Base for perfect scaling */
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; line-height: 1.1; }
+        h1 { font-size: clamp(3rem, 7vw, 6rem); color: var(--accent); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 1rem; color: var(--text-main); }
+        h3 { font-size: 1.75rem; color: var(--text-main); font-family: var(--font-sans); font-weight: 500; margin-bottom: 0.75rem; }
+        p { color: var(--text-muted); font-weight: 300; font-size: 1rem; max-width: 60ch; }
+
+        /* --- LAYOUT --- */
+        .container { width: 90%; max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .section { padding: 8rem 0; position: relative; }
+        
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn:hover { background: var(--accent); color: #000; }
+        .btn-filled { background: var(--accent); color: #000; }
+        .btn-filled:hover { background: var(--accent-light); border-color: var(--accent-light); }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { padding: 1rem 0; border-bottom-color: var(--border); background: rgba(9, 9, 11, 0.95); }
+
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav-links { display: flex; list-style: none; gap: 3rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--text-main); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .menu-toggle { display: none; background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(to bottom, var(--bg-body), #0F0F12);
+            overflow: hidden;
+        }
+
+        /* Subtle Animated Background Gradient */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 60%);
+            animation: rotate 60s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+        .hero-subtitle { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 4px; color: var(--accent); margin-bottom: 1.5rem; display: block; }
+        .hero p { font-size: 1.25rem; line-height: 1.8; margin-bottom: 3rem; }
+
+        .hero-image {
+            position: absolute;
+            right: -5%;
+            top: 50%; transform: translateY(-50%);
+            width: 55%;
+            height: 80%;
+            background: url('https://images.unsplash.com/photo-1600585154340-6fdd4f4c7c7a?auto=format&fit=crop&w=1400&q=80') no-repeat center/cover;
+            opacity: 0.4;
+            mask-image: linear-gradient(to right, transparent, black 30%);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        /* --- FEATURED PROPERTIES --- */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .property-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: rgba(197, 160, 89, 0.3);
+        }
+
+        .card-image-wrap { height: 280px; overflow: hidden; position: relative; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .property-card:hover .card-img { transform: scale(1.03); }
+
+        .card-badge {
+            position: absolute; top: 1.5rem; left: 1.5rem;
+            background: var(--accent); color: #000;
+            padding: 0.4rem 1rem; font-size: 0.7rem;
+            text-transform: uppercase; font-weight: 600; letter-spacing: 1px;
+        }
+
+        .card-content { padding: 2rem; }
+        .card-price { font-family: var(--font-serif); font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+        .card-features {
+            display: flex; gap: 1.5rem; margin-top: 1.5rem; padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .feat { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--text-muted); }
+        .feat i { color: var(--accent); }
+
+        /* --- ABOUT & STATS --- */
+        .stats-section {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .stat-item { text-align: center; padding: 2rem 0; }
+        .stat-num { font-family: var(--font-serif); font-size: 3.5rem; color: var(--text-main); display: block; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
+
+        /* --- SERVICES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .service-item {
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.01);
+            transition: background 0.3s;
+        }
+        .service-item:hover { background: rgba(255,255,255,0.03); }
+        .service-icon { font-size: 2rem; color: var(--accent); margin-bottom: 1.5rem; }
+        .service-item h3 { font-size: 1.25rem; }
+
+        /* --- CONTACT --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        .contact-form { display: grid; gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+        
+        .form-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus { border-color: var(--accent); }
+        .form-input::placeholder { color: #52525B; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--bg-surface);
+            padding: 5rem 0 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+        .footer-about p { margin-top: 1.5rem; font-size: 0.9rem; }
+        .footer-title { font-family: var(--font-serif); font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--text-main); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.75rem; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--accent); }
+        
+        .footer-bottom { border-top: 1px solid var(--border); padding-top: 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero-image { display: none; }
+            .hero-content { max-width: 100%; text-align: center; }
+            .hero p { margin-left: auto; margin-right: auto; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            /* Mobile Menu */
+            .nav-links.active { 
+                display: flex; 
+                position: absolute; 
+                top: 100%; left: 0; right: 0;
+                background: var(--bg-body);
+                flex-direction: column; 
+                padding: 2rem;
+                border-bottom: 1px solid var(--border);
+                gap: 1.5rem;
+            }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header id="mainHeader">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo"><span>Metro</span>Prime</a>
+                <ul class="nav-links" id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact"><button class="btn" style="padding: 0.6rem 1.5rem;">Contact</button></a></li>
+                </ul>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-subtitle">Global Luxury Real Estate</span>
+                <h1>Exceptional Living, Curated Worldwide.</h1>
+                <p>From the skylines of Manhattan to the shores of the Mediterranean, MetroPrime offers an unparalleled collection of the world's most distinguished residences.</p>
+                <a href="#portfolio" class="btn btn-filled">Explore Properties</a>
+            </div>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="section" id="portfolio">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2>Featured Properties</h2>
+                <p>Hand-picked selections from our global portfolio.</p>
+            </div>
+            <div class="properties-grid">
+                <!-- Property 1 -->
+                <div class="property-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Monaco">
+                        <span class="card-badge">Monaco</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Port Hercules Penthouse</h3>
+                        <div class="card-price">€12,500,000</div>
+                        <p>Panoramic views with private yacht access.</p>
+                        <div class="card-features">
+                            <div class="feat"><i class="fas fa-bed"></i> 4 Beds</div>
+                            <div class="feat"><i class="fas fa-bath"></i> 5 Baths</div>
+                            <div class="feat"><i class="fas fa-vector-square"></i> 450 m²</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Property 2 -->
+                <div class="property-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" class="card-img" alt="New York">
+                        <span class="card-badge">New York</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Central Park Tower</h3>
+                        <div class="card-price">$28,000,000</div>
+                        <p>Triplex in the tallest residential tower.</p>
+                        <div class="card-features">
+                            <div class="feat"><i class="fas fa-bed"></i> 5 Beds</div>
+                            <div class="feat"><i class="fas fa-bath"></i> 6 Baths</div>
+                            <div class="feat"><i class="fas fa-vector-square"></i> 750 m²</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Property 3 -->
+                <div class="property-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Dubai">
+                        <span class="card-badge">Dubai</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Palm Jumeirah Villa</h3>
+                        <div class="card-price">AED 45,000,000</div>
+                        <p>Exclusive beachfront living with private marina.</p>
+                        <div class="card-features">
+                            <div class="feat"><i class="fas fa-bed"></i> 6 Beds</div>
+                            <div class="feat"><i class="fas fa-bath"></i> 7 Baths</div>
+                            <div class="feat"><i class="fas fa-vector-square"></i> 850 m²</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section" id="about">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-num">15+</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">$5B</span>
+                    <span class="stat-label">Portfolio Value</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">200+</span>
+                    <span class="stat-label">Global Partners</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">24/7</span>
+                    <span class="stat-label">Concierge Support</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2>Our Expertise</h2>
+                <p>Comprehensive services for the discerning client.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon"><i class="fas fa-search-location"></i></div>
+                    <h3>Property Sourcing</h3>
+                    <p>Strategic acquisition services tailored to your investment goals.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Investment Advisory</h3>
+                    <p>Data-driven insights to maximize your real estate portfolio performance.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon"><i class="fas fa-concierge-bell"></i></div>
+                    <h3>Property Management</h3>
+                    <p>White-glove management for your assets worldwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div>
+                    <h2>Get in Touch</h2>
+                    <p style="margin-bottom: 2rem;">Connect with a specialist to discuss your requirements. We guarantee discretion and excellence.</p>
+                    <div style="margin-top: 2rem;">
+                        <h3>Headquarters</h3>
+                        <p>One Hyde Park, London SW1X 7LJ</p>
+                        <p style="margin-top: 1rem;"><strong>Email:</strong> concierge@metroprime.com</p>
+                    </div>
+                </div>
+                <div>
+                    <form class="contact-form" onsubmit="event.preventDefault(); alert('Inquiry Sent. Our team will contact you shortly.');">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Inquiry</label>
+                            <input type="text" class="form-input" placeholder="I am interested in...">
+                        </div>
+                        <button type="submit" class="btn btn-filled" style="justify-self: start; margin-top: 1rem;">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="logo"><span>Metro</span>Prime</div>
+                    <p>Redefining luxury real estate for the modern elite. Privacy, discretion, and excellence.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">Subscribe to our exclusive listings.</p>
+                    <div style="display: flex; border: 1px solid var(--border);">
+                        <input type="email" placeholder="Email" style="border: none; background: transparent; padding: 0.8rem; color: white; flex: 1; outline: none;">
+                        <button style="background: var(--accent); border: none; padding: 0 1rem; color: #000; cursor: pointer;"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2024 MetroPrime Global. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ESSENTIAL JS -->
+    <script>
+        // Sticky Header
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            // Toggle Icon
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close menu on link click (Mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                }
+            });
+        });
+    </script>
+<!-- =======================================================
+     METROPRIME CHATBOT - MASTER EDITION (v5.3 - ENTRY ANIMATION)
+     ======================================================= -->
+
+<!-- CONTAINER STYLES -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap');
+
+    #mp-chatbot-scope {
+        --mp-accent: #D4AF37;
+        --mp-accent-glow: rgba(212, 175, 55, 0.4);
+        --mp-bg-dark: #0F1012;
+        --mp-bg-card: #1A1B1F;
+        --mp-text-main: #F5F5F7;
+        --mp-text-muted: #8E8E93;
+        --mp-border: rgba(255, 255, 255, 0.08);
+        --mp-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        z-index: 2147483647;
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    /* --- TOGGLE BUTTON (FAB) --- */
+    .mp-toggle-btn {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background: var(--mp-bg-dark);
+        border: 1px solid var(--mp-accent);
+        color: var(--mp-accent);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+        
+        /* --- ANIMATION STATES --- */
+        /* Start: Hidden & Spun */
+        opacity: 0;
+        transform: scale(0) rotate(-540deg);
+        pointer-events: none; /* Can't click while hidden */
+        
+        /* The smooth transition for appearing */
+        transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Active State: User clicked (Open Window) */
+    .mp-toggle-btn.active {
+        background: var(--mp-accent);
+        color: #000;
+        transform: scale(1) rotate(45deg); /* Rotates to X */
+    }
+
+    /* Visible State: The "Blast In" animation trigger */
+    .mp-toggle-btn.visible {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        pointer-events: auto;
+    }
+
+    /* Hover Effect */
+    .mp-toggle-btn:hover {
+        box-shadow: 0 0 25px var(--mp-accent-glow);
+    }
+
+    /* The "Blast Ring" Effect - fires once when visible */
+    .mp-toggle-btn.visible::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid var(--mp-accent);
+        animation: blastRing 1s ease-out forwards;
+        pointer-events: none;
+    }
+
+    @keyframes blastRing {
+        0% { transform: scale(1); opacity: 0.8; }
+        100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    .mp-toggle-btn svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+        transition: transform 0.3s;
+    }
+
+    /* --- CHAT WINDOW --- */
+    .mp-window {
+        position: absolute;
+        bottom: 5rem;
+        right: 0;
+        width: 24rem;
+        max-width: calc(100vw - 2rem);
+        height: 42rem;
+        max-height: calc(100vh - 7rem);
+        background: rgba(15, 16, 18, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--mp-border);
+        border-radius: 1.5rem;
+        box-shadow: var(--mp-shadow);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px) scale(0.95);
+        transform-origin: bottom right;
+        transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .mp-window.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+    }
+
+    /* --- HEADER --- */
+    .mp-header {
+        padding: 1.25rem 1.5rem;
+        background: rgba(255,255,255,0.02);
+        border-bottom: 1px solid var(--mp-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .mp-header-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        color: var(--mp-text-main);
+        font-weight: 600;
+    }
+
+    .mp-header-status {
+        font-size: 0.75rem;
+        color: #34D399;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .mp-status-dot {
+        width: 8px;
+        height: 8px;
+        background: currentColor;
+        border-radius: 50%;
+        box-shadow: 0 0 8px currentColor;
+        animation: pulse 2s infinite;
+    }
+
+    /* --- MESSAGES AREA --- */
+    .mp-body {
+        flex: 1;
+        padding: 1.5rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        scroll-behavior: smooth;
+    }
+
+    .mp-body::-webkit-scrollbar { width: 4px; }
+    .mp-body::-webkit-scrollbar-track { background: transparent; }
+    .mp-body::-webkit-scrollbar-thumb { background: var(--mp-border); border-radius: 2px; }
+
+    /* --- MESSAGE BUBBLES --- */
+    .mp-msg {
+        max-width: 85%;
+        display: flex;
+        flex-direction: column;
+        animation: msgSlide 0.3s ease forwards;
+        opacity: 0;
+    }
+
+    @keyframes msgSlide { 
+        from { opacity: 0; transform: translateY(10px); } 
+        to { opacity: 1; transform: translateY(0); } 
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    .mp-msg.bot { align-self: flex-start; }
+    
+    .mp-msg.bot .bubble {
+        background: var(--mp-bg-card);
+        color: var(--mp-text-main);
+        padding: 1rem 1.25rem;
+        border-radius: 4px 1.25rem 1.25rem 1.25rem;
+        border: 1px solid var(--mp-border);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        word-break: break-word;
+    }
+
+    .mp-msg.user { align-self: flex-end; align-items: flex-end; }
+
+    .mp-msg.user .bubble {
+        background: var(--mp-accent);
+        color: #000;
+        padding: 1rem 1.25rem;
+        border-radius: 1.25rem 4px 1.25rem 1.25rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        box-shadow: 0 4px 12px var(--mp-accent-glow);
+        word-break: break-word;
+    }
+
+    .mp-time {
+        font-size: 0.65rem;
+        color: var(--mp-text-muted);
+        margin-top: 0.4rem;
+        padding: 0 0.25rem;
+    }
+    .mp-msg.user .mp-time { color: rgba(0,0,0,0.5); }
+
+    /* --- RICH CONTENT --- */
+    .mp-msg .bubble a { color: var(--mp-accent); text-decoration: underline; }
+    .mp-msg .bubble a:hover { opacity: 0.8; }
+    .mp-msg.user .bubble a { color: #000; }
+    .mp-msg .bubble img { max-width: 100%; min-width: 150px; height: auto; border-radius: 8px; margin-top: 0.5rem; display: block; cursor: pointer; }
+
+    /* --- QUICK REPLIES --- */
+    .mp-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .mp-chip {
+        background: transparent;
+        border: 1px solid var(--mp-accent);
+        color: var(--mp-accent);
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .mp-chip:hover { background: var(--mp-accent); color: #000; }
+
+    /* --- INPUT AREA --- */
+    .mp-footer {
+        padding: 1rem 1.5rem;
+        background: rgba(0,0,0,0.2);
+        border-top: 1px solid var(--mp-border);
+        display: flex;
+        align-items: flex-end;
+        gap: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .mp-input-wrapper {
+        flex: 1;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid var(--mp-border);
+        border-radius: 1.5rem;
+        padding: 0.25rem 1.25rem;
+        display: flex;
+        align-items: center;
+        transition: border-color 0.2s;
+    }
+
+    .mp-input-wrapper:focus-within { border-color: var(--mp-accent); }
+
+    .mp-input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--mp-text-main);
+        font-family: inherit;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        resize: none;
+        max-height: 120px;
+        overflow-y: auto;
+        padding: 0.5rem 0;
+    }
+
+    .mp-input::placeholder { color: var(--mp-text-muted); }
+
+    .mp-send-btn {
+        width: 3rem;
+        height: 3rem;
+        background: var(--mp-accent);
+        border: none;
+        border-radius: 50%;
+        color: #000;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.2s;
+    }
+
+    .mp-send-btn:hover { transform: scale(1.05); }
+
+    /* --- TYPING INDICATOR --- */
+    .mp-typing {
+        display: flex;
+        gap: 4px;
+        padding: 1rem 1.25rem;
+        background: var(--mp-bg-card);
+        border-radius: 4px 1.25rem 1.25rem 1.25rem;
+        border: 1px solid var(--mp-border);
+        width: fit-content;
+    }
+    .mp-typing span {
+        width: 6px;
+        height: 6px;
+        background: var(--mp-text-muted);
+        border-radius: 50%;
+        animation: bounce 1.4s infinite ease-in-out;
+    }
+    .mp-typing span:nth-child(1) { animation-delay: -0.32s; }
+    .mp-typing span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+        0%, 80%, 100% { transform: scale(0.6); }
+        40% { transform: scale(1); }
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 480px) {
+        #mp-chatbot-scope { bottom: 1rem; right: 1rem; }
+        .mp-window {
+            width: calc(100vw - 2rem);
+            height: calc(100vh - 6rem);
+            border-radius: 1.25rem;
+            bottom: 4.5rem;
+            right: -0.5rem;
+        }
+    }
+</style>
+
+<!-- HTML STRUCTURE -->
+<div id="mp-chatbot-scope">
+    
+    <!-- Chat Window -->
+    <div class="mp-window" id="mpWindow">
+        <div class="mp-header">
+            <div>
+                <div class="mp-header-title">MetroPrime Concierge</div>
+                <div class="mp-header-status"><span class="mp-status-dot"></span> Online</div>
+            </div>
+            <button class="mp-toggle-btn" style="width:32px; height:32px; font-size:1rem; border:none; background:rgba(255,255,255,0.05);" onclick="MPChat.toggle()">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+
+        <div class="mp-body" id="mpBody">
+            <!-- Messages injected here -->
+        </div>
+
+        <div class="mp-footer">
+            <div class="mp-input-wrapper">
+                <textarea class="mp-input" id="mpInput" placeholder="Type message..." rows="1"></textarea>
+            </div>
+            <button class="mp-send-btn" id="mpSend" onclick="MPChat.send()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Toggle Button (Hidden Initially) -->
+    <button class="mp-toggle-btn" id="mpToggle" onclick="MPChat.toggle()">
+        <svg id="mpIconChat" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <svg id="mpIconClose" style="display:none;" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </button>
+</div>
+
+<!-- JAVASCRIPT LOGIC -->
+<script>
+    (function() {
+        // ====== CONFIGURATION ======
+        const CONFIG = {
+            WEBHOOK_URL: 'https://hook.eu2.make.com/3rj87rdds35odqzc9zneyozraw3to8u9',
+            WELCOME_MSG: "Welcome to MetroPrime. I am your dedicated AI advisor. How may I assist you with your property search today?",
+            STORAGE_KEY: 'mp_chat_history_v1',
+            SESSION_KEY: 'mp_session_id',
+            POPUP_DELAY: 5000 // 5 Seconds delay
+        };
+
+        // ====== CORE LOGIC ======
+        window.MPChat = {
+            isOpen: false,
+            sessionID: null,
+            
+            init: function() {
+                // Load or Create Session ID
+                this.sessionID = localStorage.getItem(CONFIG.SESSION_KEY);
+                if (!this.sessionID) {
+                    this.sessionID = 'mp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                    localStorage.setItem(CONFIG.SESSION_KEY, this.sessionID);
+                }
+
+                // Load History
+                this.loadHistory();
+
+                // Bind Input Events
+                const input = document.getElementById('mpInput');
+                
+                input.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        MPChat.send();
+                    }
+                });
+
+                // --- START: WIDGET ENTRY ANIMATION ---
+                // Check if we should auto-open the window logic (optional, keeping your previous request)
+                const shouldAutoOpen = sessionStorage.getItem('mp_auto_popup_done');
+
+                setTimeout(() => {
+                    const btn = document.getElementById('mpToggle');
+                    // Add 'visible' class to trigger the CSS transition
+                    btn.classList.add('visible');
+                    
+                    // Optional: If you want the CHAT WINDOW to also open automatically the FIRST time:
+                    if (!shouldAutoOpen) {
+                        setTimeout(() => {
+                           if (!MPChat.isOpen) MPChat.toggle();
+                           sessionStorage.setItem('mp_auto_popup_done', 'true');
+                        }, 800); // Slight delay after button appears
+                    }
+                }, CONFIG.POPUP_DELAY);
+                // --- END: WIDGET ENTRY ANIMATION ---
+            },
+
+            toggle: function() {
+                this.isOpen = !this.isOpen;
+                const win = document.getElementById('mpWindow');
+                const btn = document.getElementById('mpToggle');
+                const iconChat = document.getElementById('mpIconChat');
+                const iconClose = document.getElementById('mpIconClose');
+
+                if (this.isOpen) {
+                    win.classList.add('active');
+                    btn.classList.add('active'); // Handles the rotation to X
+                    iconChat.style.display = 'none';
+                    iconClose.style.display = 'block';
+                    document.getElementById('mpInput').focus();
+                } else {
+                    win.classList.remove('active');
+                    btn.classList.remove('active'); // Handles rotation back to Chat Icon
+                    iconChat.style.display = 'block';
+                    iconClose.style.display = 'none';
+                }
+            },
+
+            send: function(textOverride) {
+                const input = document.getElementById('mpInput');
+                const text = textOverride || input.value.trim();
+                if (!text) return;
+
+                input.value = '';
+                input.style.height = 'auto';
+
+                const existingChips = document.querySelector('.mp-chips');
+                if (existingChips) existingChips.remove();
+
+                this.addMessage('user', text);
+                this.showTyping();
+
+                fetch(CONFIG.WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_message: text,
+                        user_id: this.sessionID,
+                        timestamp: new Date().toISOString()
+                    })
+                })
+                .then(res => res.text())
+                .then(reply => {
+                    this.hideTyping();
+                    this.addMessage('bot', reply || "I'm processing your request.");
+                })
+                .catch(err => {
+                    console.error(err);
+                    this.hideTyping();
+                    this.addMessage('bot', "Connection issue. Please try again.");
+                });
+            },
+
+            addMessage: function(type, text) {
+                const body = document.getElementById('mpBody');
+                const msg = document.createElement('div');
+                msg.className = `mp-msg ${type}`;
+                
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const content = this.parseContent(text);
+
+                msg.innerHTML = `
+                    <div class="bubble">${content}</div>
+                    <span class="mp-time">${time}</span>
+                `;
+                
+                body.appendChild(msg);
+                this.scrollToBottom();
+                this.saveHistory();
+            },
+
+            addQuickReplies: function(options) {
+                const body = document.getElementById('mpBody');
+                const container = document.createElement('div');
+                container.className = 'mp-chips';
+                
+                options.forEach(opt => {
+                    const chip = document.createElement('button');
+                    chip.className = 'mp-chip';
+                    chip.innerText = opt;
+                    chip.onclick = () => this.send(opt);
+                    container.appendChild(chip);
+                });
+
+                body.appendChild(container);
+                this.scrollToBottom();
+                this.saveHistory();
+            },
+
+            parseContent: function(text) {
+                const imgRegex = /(https?:\/\/[^\s]+(?:\.jpg|\.jpeg|\.png|\.gif|\.webp))/g;
+                text = text.replace(imgRegex, (url) => {
+                    return `<a href="${url}" target="_blank"><img src="${url}" alt="Preview"></a>`;
+                });
+
+                const urlRegex = /(?<!href="|src=")(https?:\/\/[^\s]+)/g;
+                text = text.replace(urlRegex, (url) => {
+                    return `<a href="${url}" target="_blank">${url}</a>`;
+                });
+
+                return text.replace(/\n/g, '<br>');
+            },
+
+            showTyping: function() {
+                const body = document.getElementById('mpBody');
+                const indicator = document.createElement('div');
+                indicator.className = 'mp-msg bot';
+                indicator.id = 'mpTypingIndicator';
+                indicator.innerHTML = `<div class="mp-typing"><span></span><span></span><span></span></div>`;
+                body.appendChild(indicator);
+                this.scrollToBottom();
+            },
+
+            hideTyping: function() {
+                const el = document.getElementById('mpTypingIndicator');
+                if (el) el.remove();
+            },
+
+            scrollToBottom: function() {
+                const body = document.getElementById('mpBody');
+                body.scrollTop = body.scrollHeight;
+            },
+
+            saveHistory: function() {
+                const body = document.getElementById('mpBody');
+                const clone = body.cloneNode(true);
+                const typing = clone.querySelector('#mpTypingIndicator');
+                if (typing) typing.remove();
+                
+                localStorage.setItem(CONFIG.STORAGE_KEY, clone.innerHTML);
+            },
+
+            loadHistory: function() {
+                const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
+                const body = document.getElementById('mpBody');
+                
+                if (saved && saved.trim() !== '') {
+                    body.innerHTML = saved;
+                    body.querySelectorAll('.mp-chip').forEach(chip => {
+                        chip.onclick = () => this.send(chip.innerText);
+                    });
+                } else {
+                    this.addMessage('bot', CONFIG.WELCOME_MSG);
+                    this.addQuickReplies(['Penthouses in Monaco', 'Villas in Dubai', 'Request Callback']);
+                }
+            }
+        };
+
+        // Initialize on load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => MPChat.init());
+        } else {
+            MPChat.init();
+        }
+    })();
+</script>
+</body>
+</html>
